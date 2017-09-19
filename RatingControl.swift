@@ -68,7 +68,7 @@ import UIKit
 	
 	// MARK: Button Action
 	func ratingButtonTapped(button: UIButton) {
-		print("Button pressed 👍")
+		print("Button pressed 👍🏻")
 	}
 
 }
