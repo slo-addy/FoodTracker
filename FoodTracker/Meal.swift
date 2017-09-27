@@ -10,13 +10,13 @@ import UIKit
 
 class Meal {
 	
-	// MARK: Properties
+	//MARK: Properties
 	
 	var name: String
 	var photo: UIImage?
 	var rating: Int
 
-	// MARK: Initizialier
+	//MARK: Initizialier
 	
 	init?(name: String, photo: UIImage?, rating: Int) {
 		

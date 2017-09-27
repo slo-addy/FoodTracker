@@ -7,22 +7,29 @@
 //
 
 import UIKit
+import os.log
 
 class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 	
-	// MARK: Properties
+	//MARK: Properties
 	@IBOutlet weak var nameTextField: UITextField!
 	@IBOutlet weak var photoImageView: UIImageView!
 	@IBOutlet weak var ratingControl: RatingControl!
+	@IBOutlet weak var saveButton: UIBarButtonItem!
 	
-	// MARK: View Lifecycle
+	// This value is either passed by 'MealTableViewController' in 'prepare(for:sender)'
+	// or constructed as part of addin a new meal
+	var meal: Meal?
+	
+	
+	//MARK: View Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		nameTextField.delegate = self
 	}
 	
-	// MARK: UITextFieldDelegate
+	//MARK: UITextFieldDelegate
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 		textField.resignFirstResponder()
 		
@@ -33,7 +40,7 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
 		textField.text = nil
 	}
 	
-	// MARK: UIImagePickerControllerDelegate
+	//MARK: UIImagePickerControllerDelegate
 	func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
 		dismiss(animated: true, completion: nil)
 	}
@@ -49,7 +56,27 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
 		dismiss(animated: true, completion: nil)
 	}
 	
-	// MARK: Actions
+	//MARK: Navigation
+	
+	// Configure view controller before it's presented
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		super.prepare(for: segue, sender: sender)
+		
+		// Configure the destination view controller only when the save button is pressed
+		guard let button = sender as? UIBarButtonItem, button === saveButton else {
+			os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
+			return
+		}
+		
+		let name = nameTextField.text ?? ""
+		let photo = photoImageView.image
+		let rating = ratingControl.rating
+		
+		// Set the meal to be passed to MealTableViewController after the unwind segue
+		meal = Meal(name: name, photo: photo, rating: rating)
+	}
+	
+	//MARK: Actions
 	@IBAction func selectImageFromPhotoLibrary(_ sender: UITapGestureRecognizer) {
 		nameTextField.resignFirstResponder()
 		

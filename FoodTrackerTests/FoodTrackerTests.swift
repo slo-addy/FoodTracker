@@ -11,7 +11,7 @@ import XCTest
 
 class FoodTrackerTests: XCTestCase {
 	
-	// MARK: Meal Class Tests
+	//MARK: Meal Class Tests
 	
 	// Confirm that the Meal initializer returns a Meal object when passed valid parameters.
 	func testMealInitializationSucceeds() {

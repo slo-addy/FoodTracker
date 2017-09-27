@@ -10,7 +10,7 @@ import UIKit
 
 @IBDesignable class RatingControl: UIStackView {
 	
-	// MARK: Properties
+	//MARK: Properties
 	@IBInspectable var starSize: CGSize = CGSize(width: 44.0, height: 44.0) {
 		didSet {
 			setupButtons()
@@ -30,7 +30,7 @@ import UIKit
 		}
 	}
 
-    // MARK: Initialization
+    //MARK: Initialization
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		
@@ -43,7 +43,7 @@ import UIKit
 		setupButtons()
 	}
 	
-	// MARK: Private Methods
+	//MARK: Private Methods
 	private func setupButtons() {
 		let bundle = Bundle(for: type(of: self))
 		let filledStar = UIImage(named: "filledStar", in: bundle, compatibleWith: self.traitCollection)
@@ -83,7 +83,7 @@ import UIKit
 		}
 	}
 	
-	// MARK: Button Action
+	//MARK: Button Action
 	func ratingButtonTapped(button: UIButton) {
 		guard let index = ratingButtons.index(of: button) else {
 			fatalError("The button, \(button), is not in the ratingButtons array: \(ratingButtons)")
